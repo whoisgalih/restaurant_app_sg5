@@ -29,15 +29,17 @@ Color black = const Color(0xFF000000);
 Color gray = const Color(0xFFB3B3B3);
 Color white = const Color(0xFFFFFFFF);
 
+Color border = const Color(0xFFF4F0F0);
+
 // Fonts
 
 // Headings
 TextStyle headings(String headerLevel, [Color? colorCode]) {
   colorCode ??= black;
-  Map levels = {"h1": 40, "h2": 32, "h3": 24, "h4": 20, "h5": 16, "h6": 14};
+  Map levels = {"1": 40, "2": 32, "3": 24, "4": 20, "5": 16, "6": 14};
   return GoogleFonts.inter(
     fontWeight: FontWeight.w700,
-    fontSize: levels[headerLevel],
+    fontSize: levels[headerLevel].toDouble(),
     color: colorCode,
   );
 }
@@ -45,10 +47,10 @@ TextStyle headings(String headerLevel, [Color? colorCode]) {
 // Title
 TextStyle title(String headerLevel, [Color? colorCode]) {
   colorCode ??= black;
-  Map levels = {"t1": 24, "t2": 20};
+  Map levels = {"1": 24, "2": 20};
   return GoogleFonts.inter(
     fontWeight: FontWeight.w600,
-    fontSize: levels[headerLevel],
+    fontSize: levels[headerLevel].toDouble(),
     color: colorCode,
   );
 }
@@ -56,10 +58,10 @@ TextStyle title(String headerLevel, [Color? colorCode]) {
 // Subtitle
 TextStyle subTitle(String headerLevel, [Color? colorCode]) {
   colorCode ??= black;
-  Map levels = {"st1": 20, "st2": 16};
+  Map levels = {"1": 20, "2": 16};
   return GoogleFonts.inter(
     fontWeight: FontWeight.w500,
-    fontSize: levels[headerLevel],
+    fontSize: levels[headerLevel].toDouble(),
     color: colorCode,
   );
 }
@@ -67,10 +69,10 @@ TextStyle subTitle(String headerLevel, [Color? colorCode]) {
 // Body
 TextStyle body(String headerLevel, [Color? colorCode]) {
   colorCode ??= black;
-  Map levels = {"b1": 16, "b2": 14};
+  Map levels = {"1": 16, "2": 14, "3": 12};
   return GoogleFonts.inter(
     fontWeight: FontWeight.w400,
-    fontSize: levels[headerLevel],
+    fontSize: levels[headerLevel].toDouble(),
     color: colorCode,
   );
 }
