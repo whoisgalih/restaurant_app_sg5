@@ -4,14 +4,14 @@ import 'package:restaurant_app/theme/theme.dart';
 import 'package:restaurant_app/components/pill_text.dart';
 import 'package:restaurant_app/components/food_list.dart';
 
-class Food extends StatefulWidget {
-  const Food({Key? key}) : super(key: key);
+class FoodPage extends StatefulWidget {
+  const FoodPage({Key? key}) : super(key: key);
 
   @override
-  State<Food> createState() => _FoodState();
+  State<FoodPage> createState() => _FoodPageState();
 }
 
-class _FoodState extends State<Food> {
+class _FoodPageState extends State<FoodPage> {
   late TextEditingController _controller;
 
   @override

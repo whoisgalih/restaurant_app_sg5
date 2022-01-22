@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:restaurant_app/theme/theme.dart';
-import 'package:restaurant_app/pages/food.dart';
+import 'package:restaurant_app/pages/food_page.dart';
 
 class Category extends StatelessWidget {
   final String imageFile;
@@ -17,7 +17,7 @@ class Category extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Food())),
+          context, MaterialPageRoute(builder: (context) => FoodPage())),
       child: Container(
         width: 70,
         child: Column(
