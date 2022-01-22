@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:restaurant_app/theme/theme.dart';
+import 'package:restaurant_app/components/pill_text.dart';
+import 'package:restaurant_app/components/food_list.dart';
 
 class Food extends StatefulWidget {
   const Food({Key? key}) : super(key: key);
@@ -28,7 +30,7 @@ class _FoodState extends State<Food> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: [
             Container(
               decoration: BoxDecoration(
@@ -62,6 +64,7 @@ class _FoodState extends State<Food> {
               ),
             ),
             Container(
+              clipBehavior: Clip.none,
               margin: EdgeInsets.symmetric(horizontal: 20, vertical: 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,6 +103,7 @@ class _FoodState extends State<Food> {
                   ),
                   SizedBox(height: 24),
                   SingleChildScrollView(
+                    clipBehavior: Clip.none,
                     scrollDirection: Axis.horizontal,
                     child: Wrap(
                       direction: Axis.horizontal,
@@ -113,75 +117,38 @@ class _FoodState extends State<Food> {
                       ].map((e) => PillText(text: e)).toList(),
                     ),
                   ),
-                  SizedBox(height: 32),
-                  Expanded(
-                      child: Center(
-                    child: Text('Hello'),
-                  )
-                      // child: GridView.count(crossAxisCount: 2,
-                      //     // mainAxisSpacing: 24,
-                      //     // crossAxisSpacing: 23,
-                      //     children: [
-                      //       // FoodItem()
-                      //       Text('a'),
-                      //       Text('a'),
-                      //       Text('a'),
-                      //       Text('a'),
-                      //     ]),
-                      ),
                 ],
               ),
             ),
-            // ElevatedButton(
-            // onPressed: () => Navigator.pop(context), child: Text('Back')),
+            FoodList(foods: [
+              {
+                'image': 'Intersect.png',
+                'name': 'Meatball Sweatie',
+                'star': '4.9',
+                'price': 'Rp63.500'
+              },
+              {
+                'image': 'Intersect-2.png',
+                'name': 'Noodle Ex',
+                'star': '4.8',
+                'price': 'Rp42.000'
+              },
+              {
+                'image': 'Intersect-1.png',
+                'name': 'Burger Ala Ala',
+                'star': '4.7',
+                'price': 'Rp55.500'
+              },
+              {
+                'image': 'Intersect-3.png',
+                'name': 'Chicken Collage',
+                'star': '4.5',
+                'price': 'Rp78.200'
+              },
+            ]),
           ],
         ),
       ),
     );
-  }
-}
-
-class FoodItem extends StatelessWidget {
-  const FoodItem({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Image(image: AssetImage('assets/images/recommendation/Intersect.png')),
-        Container(
-            margin: EdgeInsets.all(8),
-            child: Column(
-              children: [
-                Text('Meatball Sweatie', style: subTitle('2')),
-                Row(children: [
-                  SvgPicture.asset('assets/images/icon/star.svg',
-                      height: 24, width: 24),
-                  Text('Helo'),
-                ]),
-              ],
-            )),
-      ],
-    );
-  }
-}
-
-class PillText extends StatelessWidget {
-  final String text;
-
-  const PillText({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        child: Text(this.text, style: body('2')),
-        decoration: BoxDecoration(
-            color: Color(0xFFF3F1F1), borderRadius: BorderRadius.circular(20)));
   }
 }
