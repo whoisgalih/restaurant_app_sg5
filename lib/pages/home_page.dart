@@ -100,34 +100,38 @@ class HomePage extends StatelessWidget {
                           'Intersect.png',
                           'Family Package',
                           '1 large table 6 chair',
-                          "Rp320.000"
+                          "Rp320.000",
+                          '4.7'
                         ],
                         [
                           'Intersect-1.png',
                           'Family Package',
                           '1 large table 6 chair',
-                          "Rp320.000"
+                          "Rp320.000",
+                          '4.9'
                         ],
                         [
                           'Intersect.png',
                           'Family Package',
                           '1 large table 6 chair',
-                          "Rp320.000"
+                          "Rp320.000",
+                          '4.7'
                         ],
                         [
                           'Intersect-1.png',
                           'Family Package',
                           '1 large table 6 chair',
-                          "Rp320.000"
+                          "Rp320.000",
+                          '4.9'
                         ],
                       ]
                           .map(
                             (e) => RecommendationItem(
-                              imageFile: e[0],
-                              package: e[1],
-                              qty: e[2],
-                              price: e[3],
-                            ),
+                                imageFile: e[0],
+                                package: e[1],
+                                qty: e[2],
+                                price: e[3],
+                                star: e[4]),
                           )
                           .toList()),
                 ),
