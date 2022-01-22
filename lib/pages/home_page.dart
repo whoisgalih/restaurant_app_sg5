@@ -43,6 +43,7 @@ class HomePage extends StatelessWidget {
           CarouselSlider(
             options: CarouselOptions(
               height: 159,
+              // disableCenter: true,
             ),
             items: [
               'assets/images/carousel-image/super deal date.png',
@@ -52,7 +53,7 @@ class HomePage extends StatelessWidget {
                 .map((item) => Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
-                        color: Colors.green,
+                        color: gray,
                       ),
                       margin: EdgeInsets.symmetric(horizontal: 8),
                       child: Image(
