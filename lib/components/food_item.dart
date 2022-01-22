@@ -45,11 +45,18 @@ class FoodItem extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Image(
-                image: AssetImage('assets/images/foods/' + image),
-                height: 160,
-                width: double.infinity,
-                fit: BoxFit.cover),
+            Container(
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: white,
+              ),
+              child: Image(
+                  image: AssetImage('assets/images/foods/' + image),
+                  height: 160,
+                  width: double.infinity,
+                  fit: BoxFit.cover),
+            ),
             Container(
                 margin: EdgeInsets.all(8),
                 child: Column(
