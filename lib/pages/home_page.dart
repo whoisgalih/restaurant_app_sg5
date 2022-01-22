@@ -14,7 +14,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             margin: EdgeInsets.only(left: 20, right: 20, top: 8),
@@ -64,6 +63,44 @@ class HomePage extends StatelessWidget {
                     ))
                 .toList(),
           ),
+          SizedBox(
+            height: 8,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 8,
+                height: 8,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: primary50,
+                ),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Container(
+                width: 8,
+                height: 8,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: gray,
+                ),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Container(
+                width: 8,
+                height: 8,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: gray,
+                ),
+              ),
+            ],
+          ),
           Container(
             clipBehavior: Clip.none,
             margin: EdgeInsets.symmetric(horizontal: 20),
@@ -71,7 +108,7 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 56,
+                  height: 40,
                 ),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
