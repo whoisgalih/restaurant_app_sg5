@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/theme/theme.dart';
-import 'package:restaurant_app/components/category.dart';
-import 'package:restaurant_app/components/recommendation_item.dart';
+import 'package:restaurant_app/widgets/category.dart';
+import 'package:restaurant_app/widgets/recommendation_item.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -39,66 +39,11 @@ class HomePage extends StatelessWidget {
           SizedBox(
             height: 24,
           ),
-          CarouselSlider(
-            options: CarouselOptions(
-              height: 159,
-              // disableCenter: true,
-            ),
+          Slider(
             items: [
               'assets/images/carousel-image/super deal date.png',
               'assets/images/carousel-image/super family.png',
               'assets/images/carousel-image/combo deal.png',
-            ]
-                .map((item) => Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        color: gray,
-                      ),
-                      margin: EdgeInsets.symmetric(horizontal: 8),
-                      child: Image(
-                        image: AssetImage(item),
-                        height: 160,
-                        width: 320,
-                      ),
-                    ))
-                .toList(),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 8,
-                height: 8,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: primary50,
-                ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Container(
-                width: 8,
-                height: 8,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: gray,
-                ),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              Container(
-                width: 8,
-                height: 8,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: gray,
-                ),
-              ),
             ],
           ),
           Container(
@@ -108,7 +53,7 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 40,
+                  height: 32,
                 ),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -180,6 +125,73 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class Slider extends StatefulWidget {
+  final List<String> items;
+
+  const Slider({
+    Key? key,
+    required this.items,
+  }) : super(key: key);
+
+  @override
+  State<Slider> createState() => _SliderState();
+}
+
+class _SliderState extends State<Slider> {
+  int _currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CarouselSlider(
+          options: CarouselOptions(
+            height: 159,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            disableCenter: true,
+          ),
+          items: widget.items
+              .map((item) => Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: gray,
+                    ),
+                    margin: EdgeInsets.symmetric(horizontal: 8),
+                    child: Image(
+                      image: AssetImage(item),
+                      height: 160,
+                      width: 320,
+                    ),
+                  ))
+              .toList(),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: widget.items.asMap().entries.map(
+            (entry) {
+              return Container(
+                width: 8.0,
+                height: 8.0,
+                margin:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: _currentIndex == entry.key ? primary50 : gray,
+                ),
+              );
+            },
+          ).toList(),
+        ),
+      ],
     );
   }
 }

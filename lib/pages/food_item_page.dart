@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:restaurant_app/widgets/qty.dart';
 import 'package:restaurant_app/theme/theme.dart';
 
 class FoodItemPage extends StatelessWidget {
@@ -115,56 +116,6 @@ class FoodItemPage extends StatelessWidget {
                     height: 4,
                     width: 40)))
       ]),
-    );
-  }
-}
-
-class QTY extends StatefulWidget {
-  const QTY({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<QTY> createState() => _QTYState();
-}
-
-class _QTYState extends State<QTY> {
-  int qty = 1;
-
-  void _add() {
-    setState(() {
-      qty += 1;
-    });
-  }
-
-  void _substract() {
-    if (qty != 1) {
-      setState(() {
-        qty -= 1;
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 91,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () => _substract(),
-            child: SvgPicture.asset('assets/images/icon/remove-circle.svg',
-                height: 16, width: 16, color: qty == 1 ? gray : primary50),
-          ),
-          Text(qty.toString(), style: body('2', gray)),
-          GestureDetector(
-            onTap: () => _add(),
-            child: SvgPicture.asset('assets/images/icon/add-circle.svg',
-                height: 16, width: 16),
-          ),
-        ],
-      ),
     );
   }
 }
