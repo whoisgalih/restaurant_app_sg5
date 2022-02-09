@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
+
 import 'package:restaurant_app/theme/theme.dart';
 import 'package:restaurant_app/widgets/pill_text.dart';
 import 'package:restaurant_app/widgets/food_list.dart';
-
-import 'cart_page.dart';
+import 'package:restaurant_app/pages/cart_page.dart';
 
 class FoodPage extends StatefulWidget {
   const FoodPage({Key? key}) : super(key: key);
@@ -15,6 +18,17 @@ class FoodPage extends StatefulWidget {
 
 class _FoodPageState extends State<FoodPage> {
   late TextEditingController _controller;
+  List<Map> _foods = [];
+
+  Future<void> readJson() async {
+    final String response =
+        await rootBundle.loadString('assets/data/food.json');
+    final Map data = await json.decode(response);
+    final List<Map> foods = [...data['foods']];
+    setState(() {
+      _foods = foods;
+    });
+  }
 
   @override
   void initState() {
@@ -30,6 +44,7 @@ class _FoodPageState extends State<FoodPage> {
 
   @override
   Widget build(BuildContext context) {
+    readJson();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -133,32 +148,7 @@ class _FoodPageState extends State<FoodPage> {
                       ],
                     ),
                   ),
-                  FoodList(foods: [
-                    {
-                      'image': 'Intersect.png',
-                      'name': 'Meatball Sweatie',
-                      'star': '4.9',
-                      'price': 'Rp63.500'
-                    },
-                    {
-                      'image': 'Intersect-2.png',
-                      'name': 'Noodle Ex',
-                      'star': '4.8',
-                      'price': 'Rp42.000'
-                    },
-                    {
-                      'image': 'Intersect-1.png',
-                      'name': 'Burger Ala Ala',
-                      'star': '4.7',
-                      'price': 'Rp55.500'
-                    },
-                    {
-                      'image': 'Intersect-3.png',
-                      'name': 'Chicken Collage',
-                      'star': '4.5',
-                      'price': 'Rp78.200'
-                    },
-                  ]),
+                  FoodList(foods: _foods),
                   SizedBox(height: 32),
                 ],
               ),

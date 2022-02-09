@@ -2,35 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:restaurant_app/theme/theme.dart';
 
-class QTY extends StatefulWidget {
+typedef void IntCallback(int val);
+
+class QtyStf extends StatefulWidget {
+  final IntCallback callback;
   final double height;
   final TextStyle? textStyle;
 
-  const QTY({
+  const QtyStf({
     Key? key,
     this.height = 16.0,
     this.textStyle,
+    required this.callback,
   }) : super(key: key);
 
   @override
-  State<QTY> createState() => _QTYState();
+  State<QtyStf> createState() => _QtyStfState();
 }
 
-class _QTYState extends State<QTY> {
-  int qty = 1;
+class _QtyStfState extends State<QtyStf> {
+  int _qty = 1;
+
+  int get quantity => _qty;
 
   void _add() {
     setState(() {
-      qty += 1;
+      _qty += 1;
     });
+    widget.callback(quantity);
   }
 
   void _substract() {
-    if (qty != 1) {
+    if (_qty != 1) {
       setState(() {
-        qty -= 1;
+        _qty -= 1;
       });
     }
+    widget.callback(quantity);
   }
 
   @override
@@ -45,9 +53,9 @@ class _QTYState extends State<QTY> {
             child: SvgPicture.asset('assets/images/icon/remove-circle.svg',
                 height: widget.height,
                 width: widget.height,
-                color: qty == 1 ? gray : primary50),
+                color: _qty == 1 ? gray : primary50),
           ),
-          Text(qty.toString(), style: widget.textStyle ?? body('2', gray)),
+          Text(_qty.toString(), style: widget.textStyle ?? body('2', gray)),
           GestureDetector(
             onTap: () => _add(),
             child: SvgPicture.asset('assets/images/icon/add-circle.svg',

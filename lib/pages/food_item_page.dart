@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:restaurant_app/widgets/qty.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app/models/food.dart';
+import 'package:restaurant_app/provider/cart_provider.dart';
+import 'package:restaurant_app/widgets/qty_stf.dart';
 import 'package:restaurant_app/theme/theme.dart';
+import 'package:restaurant_app/widgets/qty_stl.dart';
 
-class FoodItemPage extends StatelessWidget {
+class FoodItemPage extends StatefulWidget {
+  final String id;
   final String image;
   final String name;
   final String star;
@@ -11,11 +16,22 @@ class FoodItemPage extends StatelessWidget {
 
   const FoodItemPage({
     Key? key,
+    required this.id,
     required this.image,
     required this.name,
     required this.star,
     required this.price,
   }) : super(key: key);
+
+  @override
+  State<FoodItemPage> createState() => _FoodItemPageState();
+
+  static _FoodItemPageState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_FoodItemPageState>();
+}
+
+class _FoodItemPageState extends State<FoodItemPage> {
+  int _qty = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +49,7 @@ class FoodItemPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Image(
-                  image: AssetImage('assets/images/foods/' + image),
+                  image: AssetImage('assets/images/foods/' + widget.image),
                   height: 300,
                   width: double.infinity,
                   fit: BoxFit.cover),
@@ -49,7 +65,7 @@ class FoodItemPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              name,
+                              widget.name,
                               style: title('1'),
                             ),
                             SizedBox(height: 8),
@@ -81,15 +97,36 @@ class FoodItemPage extends StatelessWidget {
                                       height: 16,
                                       width: 16),
                                   SizedBox(width: 8),
-                                  Text(star, style: body('2', gray)),
+                                  Text(widget.star, style: body('2', gray)),
                                 ])
                           ],
                         ),
-                        QTY(),
+                        // QtyStf(
+                        //   callback: (val) => setState(() => _qty = val),
+                        // ),
+                        Consumer<CartProvider>(
+                          builder: (context, cart, child) {
+                            Food? food = cart.findById(widget.id);
+                            return food != null
+                                ? QtyStl(
+                                    callback: (val) {
+                                      food.quantity = val;
+                                      Provider.of<CartProvider>(
+                                        context,
+                                        listen: false,
+                                      ).editFood(food);
+                                    },
+                                    quantity: food.quantity)
+                                : QtyStf(
+                                    callback: (val) =>
+                                        setState(() => _qty = val),
+                                  );
+                          },
+                        )
                       ],
                     ),
                     SizedBox(height: 24),
-                    Text(price, style: title('1')),
+                    Text(widget.price, style: title('1')),
                     SizedBox(height: 32),
                     SizedBox(
                         width: double.infinity,
@@ -99,7 +136,19 @@ class FoodItemPage extends StatelessWidget {
                                 primary: primary50,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 12)),
-                            onPressed: () {},
+                            onPressed: () {
+                              Provider.of<CartProvider>(
+                                context,
+                                listen: false,
+                              ).addFood(Food(
+                                id: widget.id,
+                                image: widget.image,
+                                name: widget.name,
+                                price: widget.price,
+                                quantity: _qty,
+                                star: widget.star,
+                              ));
+                            },
                             child: Text('Place Order',
                                 style: subTitle('2', white))))
                   ],

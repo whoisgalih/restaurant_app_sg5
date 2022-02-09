@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:restaurant_app/widgets/qty.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app/models/food.dart';
+import 'package:restaurant_app/provider/cart_provider.dart';
+import 'package:restaurant_app/widgets/qty_stf.dart';
 import 'package:restaurant_app/theme/theme.dart';
-
-import 'food_page.dart';
+import 'package:restaurant_app/pages/food_page.dart';
+import 'package:restaurant_app/widgets/qty_stl.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -13,22 +16,13 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
+    // String _qty;
+    // Provider.of<CartProvider>(
+    //   context,
+    //   listen: false,
+    // ).clearAll();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -59,7 +53,6 @@ class _CartPageState extends State<CartPage> {
             ),
             Expanded(
               child: SingleChildScrollView(
-                // clipBehavior: Clip.none,
                 child: Container(
                   clipBehavior: Clip.none,
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 32),
@@ -67,42 +60,16 @@ class _CartPageState extends State<CartPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Food', style: subTitle('1')),
+                      Consumer<CartProvider>(
+                          builder: (context, cart, child) =>
+                              Text('${cart.foods.toList()}')),
                       SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  color: white,
-                                ),
-                                child: Image(
-                                    image: AssetImage(
-                                        'assets/images/foods/Intersect.png'),
-                                    height: 80,
-                                    width: 80,
-                                    fit: BoxFit.cover),
-                              ),
-                              SizedBox(width: 24),
-                              Column(
-                                children: [
-                                  Text('Nama', style: subTitle('2')),
-                                  SizedBox(height: 8),
-                                  Text('Harga', style: subTitle('2')),
-                                ],
-                              ),
-                            ],
-                          ),
-                          QTY(
-                            height: 19.5,
-                            textStyle: subTitle('2', gray),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 16),
+                      Consumer<CartProvider>(builder: (context, cart, child) {
+                        return Column(
+                            children: cart.foods
+                                .map((food) => CartFoodItem(food: food))
+                                .toList());
+                      }),
                       Center(
                           child: GestureDetector(
                         onTap: () => Navigator.push(
@@ -235,6 +202,64 @@ class _CartPageState extends State<CartPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CartFoodItem extends StatelessWidget {
+  Food food;
+
+  CartFoodItem({
+    Key? key,
+    required this.food,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Container(
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  color: white,
+                ),
+                child: Image(
+                    image: AssetImage('assets/images/foods/' + food.image),
+                    height: 80,
+                    width: 80,
+                    fit: BoxFit.cover),
+              ),
+              SizedBox(width: 24),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(food.name, style: subTitle('2')),
+                  SizedBox(height: 8),
+                  Text(food.price, style: subTitle('2')),
+                ],
+              ),
+            ],
+          ),
+          QtyStl(
+            callback: (val) {
+              food.quantity = val;
+              Provider.of<CartProvider>(
+                context,
+                listen: false,
+              ).editFood(food);
+            },
+            height: 19.5,
+            textStyle: subTitle('2', gray),
+            quantity: food.quantity,
+          )
+        ],
       ),
     );
   }

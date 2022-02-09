@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_app/theme/theme.dart';
 import 'package:restaurant_app/widgets/category.dart';
 import 'package:restaurant_app/widgets/recommendation_item.dart';
+import 'package:restaurant_app/pages/cart_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -31,8 +32,12 @@ class HomePage extends StatelessWidget {
                     Text('Get your favorite food here!', style: subTitle("2"))
                   ],
                 ),
-                SvgPicture.asset('assets/images/icon/cart.svg',
-                    height: 28, width: 28)
+                GestureDetector(
+                  onTap: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CartPage())),
+                  child: SvgPicture.asset('assets/images/icon/cart.svg',
+                      height: 28, width: 28),
+                )
               ],
             ),
           ),

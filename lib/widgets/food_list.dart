@@ -23,6 +23,7 @@ class FoodList extends StatelessWidget {
       itemBuilder: (context, index) {
         final food = foods[index];
         return FoodItem(
+            id: food['id'],
             image: food['image'],
             name: food['name'],
             star: food['star'],

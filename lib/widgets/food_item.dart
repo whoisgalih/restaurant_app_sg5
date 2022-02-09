@@ -7,12 +7,14 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class FoodItem extends StatelessWidget {
   const FoodItem({
     Key? key,
+    required this.id,
     required this.image,
     required this.name,
     required this.star,
     required this.price,
   }) : super(key: key);
 
+  final String id;
   final String image;
   final String name;
   final String star;
@@ -29,7 +31,8 @@ class FoodItem extends StatelessWidget {
           builder: (BuildContext context) {
             return Wrap(
               children: [
-                FoodItemPage(image: image, name: name, star: star, price: price)
+                FoodItemPage(
+                    id: id, image: image, name: name, star: star, price: price)
               ],
             );
           }),
