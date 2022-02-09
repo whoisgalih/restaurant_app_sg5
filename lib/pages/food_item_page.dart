@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/models/food.dart';
-import 'package:restaurant_app/provider/cart_provider.dart';
+import 'package:restaurant_app/provider/food_provider.dart';
 import 'package:restaurant_app/widgets/qty_stf.dart';
 import 'package:restaurant_app/theme/theme.dart';
 import 'package:restaurant_app/widgets/qty_stl.dart';
@@ -104,14 +104,14 @@ class _FoodItemPageState extends State<FoodItemPage> {
                         // QtyStf(
                         //   callback: (val) => setState(() => _qty = val),
                         // ),
-                        Consumer<CartProvider>(
+                        Consumer<FoodProvider>(
                           builder: (context, cart, child) {
                             Food? food = cart.findById(widget.id);
                             return food != null
                                 ? QtyStl(
                                     callback: (val) {
                                       food.quantity = val;
-                                      Provider.of<CartProvider>(
+                                      Provider.of<FoodProvider>(
                                         context,
                                         listen: false,
                                       ).editFood(food);
@@ -137,7 +137,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 12)),
                             onPressed: () {
-                              Provider.of<CartProvider>(
+                              Provider.of<FoodProvider>(
                                 context,
                                 listen: false,
                               ).addFood(Food(

@@ -3,7 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:restaurant_app/models/food.dart';
 import 'package:restaurant_app/pages/cart_page.dart';
 
-class CartProvider with ChangeNotifier {
+class FoodProvider with ChangeNotifier {
   List<Food> _foods = [];
 
   List<Food> get foods => _foods;

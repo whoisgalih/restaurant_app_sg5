@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/models/food.dart';
-import 'package:restaurant_app/provider/cart_provider.dart';
+import 'package:restaurant_app/provider/food_provider.dart';
 import 'package:restaurant_app/widgets/qty_stf.dart';
 import 'package:restaurant_app/theme/theme.dart';
 import 'package:restaurant_app/pages/food_page.dart';
@@ -19,7 +19,7 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     // String _qty;
-    // Provider.of<CartProvider>(
+    // Provider.of<FoodProvider>(
     //   context,
     //   listen: false,
     // ).clearAll();
@@ -61,7 +61,7 @@ class _CartPageState extends State<CartPage> {
                     children: [
                       Text('Food', style: subTitle('1')),
                       SizedBox(height: 16),
-                      Consumer<CartProvider>(builder: (context, cart, child) {
+                      Consumer<FoodProvider>(builder: (context, cart, child) {
                         return Column(children: [
                           ...cart.foods
                               .map((food) => CartFoodItem(food: food))
@@ -252,12 +252,12 @@ class CartFoodItem extends StatelessWidget {
             callback: (val) {
               if (val > 1) {
                 food.quantity = val;
-                Provider.of<CartProvider>(
+                Provider.of<FoodProvider>(
                   context,
                   listen: false,
                 ).editFood(food);
               } else {
-                Provider.of<CartProvider>(
+                Provider.of<FoodProvider>(
                   context,
                   listen: false,
                 ).removeFood(food);

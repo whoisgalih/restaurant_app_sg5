@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:restaurant_app/pages/home_page.dart';
-import 'package:restaurant_app/provider/cart_provider.dart';
+import 'package:restaurant_app/provider/food_provider.dart';
 import 'package:restaurant_app/theme/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -12,8 +12,8 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<CartProvider>(
-        create: (context) => CartProvider(),
+    return ChangeNotifierProvider<FoodProvider>(
+        create: (context) => FoodProvider(),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
