@@ -250,7 +250,7 @@ class CartFoodItem extends StatelessWidget {
           ),
           QtyStl(
             callback: (val) {
-              if (val > 1) {
+              if (val > 0) {
                 food.quantity = val;
                 Provider.of<FoodProvider>(
                   context,

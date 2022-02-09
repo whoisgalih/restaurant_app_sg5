@@ -110,11 +110,18 @@ class _FoodItemPageState extends State<FoodItemPage> {
                             return food != null
                                 ? QtyStl(
                                     callback: (val) {
-                                      food.quantity = val;
-                                      Provider.of<FoodProvider>(
-                                        context,
-                                        listen: false,
-                                      ).editFood(food);
+                                      if (val > 0) {
+                                        food.quantity = val;
+                                        Provider.of<FoodProvider>(
+                                          context,
+                                          listen: false,
+                                        ).editFood(food);
+                                      } else {
+                                        Provider.of<FoodProvider>(
+                                          context,
+                                          listen: false,
+                                        ).removeFood(food);
+                                      }
                                     },
                                     quantity: food.quantity)
                                 : QtyStf(
