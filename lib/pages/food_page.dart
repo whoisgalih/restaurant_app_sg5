@@ -19,14 +19,69 @@ class FoodPage extends StatefulWidget {
 class _FoodPageState extends State<FoodPage> {
   late TextEditingController _controller;
   List<Map> _foods = [];
+  List<String> _tags = [];
+  List<Map>? _searchResult = null;
+  List<Map>? _filtered = null;
+  // List<String>? _filterTags = null;
+  List<String> _filterTags = [];
+
+  search(String text) {
+    if (text == '') {
+      setState(() {
+        _searchResult = null;
+      });
+      return;
+    }
+
+    List<Map> result = (_filtered ?? _foods)
+        .where(
+            (food) => food['name'].toLowerCase().contains(text.toLowerCase()))
+        .toList();
+    setState(() {
+      _searchResult = result;
+    });
+  }
+
+  filter(List<String> tags) {
+    if (tags.isEmpty) {
+      setState(() {
+        _filtered = null;
+      });
+      return;
+    }
+
+    List<List> temp = [];
+    tags.forEach((tag) {
+      temp.add(_foods.where((food) => food['tags'].contains(tag)).toList());
+    });
+
+    List _result = temp
+        .fold<Set>(
+            temp.first.toSet(),
+            (previousValue, element) =>
+                previousValue.intersection(element.toSet()))
+        .toList();
+
+    List<Map> result = [..._result];
+
+    setState(() {
+      _filtered = result != [] ? result : null;
+    });
+  }
 
   Future<void> readJson() async {
     final String response =
         await rootBundle.loadString('assets/data/food.json');
     final Map data = await json.decode(response);
     final List<Map> foods = [...data['foods']];
+    List<String> tags = [];
+    for (var food in foods) {
+      final List<String> __tags = [...food['tags']];
+      tags.addAll(__tags);
+    }
     setState(() {
       _foods = foods;
+      _tags = tags.toSet().toList();
     });
   }
 
@@ -95,6 +150,7 @@ class _FoodPageState extends State<FoodPage> {
                       children: [
                         TextField(
                           controller: _controller,
+                          onChanged: search(_controller.text),
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: white,
@@ -136,19 +192,65 @@ class _FoodPageState extends State<FoodPage> {
                           child: Wrap(
                             direction: Axis.horizontal,
                             spacing: 16,
-                            children: [
-                              'Dinner Food',
-                              'Economic Food',
-                              'Hot Food',
-                              'Family Food',
-                              'Super Food'
-                            ].map((e) => PillText(text: e)).toList(),
+                            children: _tags
+                                .map((e) => GestureDetector(
+                                    onTap: () {
+                                      if (_filterTags.contains(e)) {
+                                        setState(() {
+                                          _filterTags.remove(e);
+                                        });
+                                        filter(_filterTags);
+                                      } else {
+                                        setState(() {
+                                          _filterTags.add(e);
+                                        });
+                                        filter(_filterTags);
+                                      }
+                                    },
+                                    child: PillText(
+                                        text: e,
+                                        active: _filterTags.contains(e))))
+                                .toList(),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  FoodList(foods: _foods),
+                  (_searchResult ?? _filtered ?? _foods).isEmpty
+                      ? Container(
+                          padding:
+                              EdgeInsets.only(top: 80, left: 20, right: 20),
+                          child: Column(children: [
+                            SvgPicture.asset(
+                                'assets/images/icon/restaurant.svg',
+                                height: 160,
+                                width: 160),
+                            SizedBox(height: 24),
+                            Text(
+                              'Well, there is no food you are looking for :(',
+                              style: title('1'),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 50),
+                            Container(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    elevation: 0,
+                                    primary: primary50,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 12)),
+                                child: Text('Find Other Food',
+                                    style: subTitle('2', white)),
+                                onPressed: () {
+                                  setState(() {
+                                    _controller.text = '';
+                                  });
+                                },
+                              ),
+                            )
+                          ]))
+                      : FoodList(foods: _searchResult ?? _filtered ?? _foods),
                   SizedBox(height: 32),
                 ],
               ),

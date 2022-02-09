@@ -101,9 +101,6 @@ class _FoodItemPageState extends State<FoodItemPage> {
                                 ])
                           ],
                         ),
-                        // QtyStf(
-                        //   callback: (val) => setState(() => _qty = val),
-                        // ),
                         Consumer<FoodProvider>(
                           builder: (context, cart, child) {
                             Food? food = cart.findById(widget.id);
