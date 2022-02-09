@@ -19,7 +19,9 @@ class CartProvider with ChangeNotifier {
   }
 
   addFood(Food food) {
-    _foods.add(food);
+    if (findById(food.id) == null) {
+      _foods.add(food);
+    }
     notifyListeners();
   }
 
@@ -29,7 +31,13 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  removeFood(Food food) {
+    _foods.remove(food);
+    notifyListeners();
+  }
+
   clearAll() {
     _foods.clear();
+    notifyListeners();
   }
 }

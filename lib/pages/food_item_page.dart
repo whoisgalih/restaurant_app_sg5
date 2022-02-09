@@ -148,6 +148,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
                                 quantity: _qty,
                                 star: widget.star,
                               ));
+                              Navigator.of(context).pop();
                             },
                             child: Text('Place Order',
                                 style: subTitle('2', white))))

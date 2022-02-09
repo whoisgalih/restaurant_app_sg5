@@ -60,25 +60,26 @@ class _CartPageState extends State<CartPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Food', style: subTitle('1')),
-                      Consumer<CartProvider>(
-                          builder: (context, cart, child) =>
-                              Text('${cart.foods.toList()}')),
                       SizedBox(height: 16),
                       Consumer<CartProvider>(builder: (context, cart, child) {
-                        return Column(
-                            children: cart.foods
-                                .map((food) => CartFoodItem(food: food))
-                                .toList());
+                        return Column(children: [
+                          ...cart.foods
+                              .map((food) => CartFoodItem(food: food))
+                              .toList(),
+                          Center(
+                              child: GestureDetector(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FoodPage())),
+                            child: Text(
+                                cart.foods.length > 0
+                                    ? 'add more food'
+                                    : 'add food',
+                                style: subTitle('2', primary50)),
+                          )),
+                        ]);
                       }),
-                      Center(
-                          child: GestureDetector(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => FoodPage())),
-                        child: Text('add more food',
-                            style: subTitle('2', primary50)),
-                      )),
                       SizedBox(height: 24),
                       Text('Table', style: subTitle('1')),
                       SizedBox(height: 16),
@@ -249,11 +250,18 @@ class CartFoodItem extends StatelessWidget {
           ),
           QtyStl(
             callback: (val) {
-              food.quantity = val;
-              Provider.of<CartProvider>(
-                context,
-                listen: false,
-              ).editFood(food);
+              if (val > 1) {
+                food.quantity = val;
+                Provider.of<CartProvider>(
+                  context,
+                  listen: false,
+                ).editFood(food);
+              } else {
+                Provider.of<CartProvider>(
+                  context,
+                  listen: false,
+                ).removeFood(food);
+              }
             },
             height: 19.5,
             textStyle: subTitle('2', gray),

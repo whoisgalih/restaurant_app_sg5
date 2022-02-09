@@ -23,7 +23,7 @@ class QtyStl extends StatelessWidget {
   }
 
   void _substract() {
-    if (quantity > 1) {
+    if (quantity > 0) {
       callback(quantity - 1);
     }
   }
@@ -40,7 +40,7 @@ class QtyStl extends StatelessWidget {
             child: SvgPicture.asset('assets/images/icon/remove-circle.svg',
                 height: height,
                 width: height,
-                color: quantity == 1 ? gray : primary50),
+                color: quantity > 0 ? primary50 : gray),
           ),
           Text(quantity.toString(), style: textStyle ?? body('2', gray)),
           GestureDetector(
