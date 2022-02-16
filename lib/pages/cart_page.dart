@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/models/food.dart';
 import 'package:restaurant_app/provider/food_provider.dart';
-import 'package:restaurant_app/widgets/qty_stf.dart';
 import 'package:restaurant_app/theme/theme.dart';
 import 'package:restaurant_app/pages/food_page.dart';
 import 'package:restaurant_app/widgets/qty_stl.dart';
@@ -37,7 +36,7 @@ class _CartPageState extends State<CartPage> {
                       offset: Offset(0, 6)),
                 ],
               ),
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               child: Row(
                 children: [
                   GestureDetector(
@@ -46,7 +45,7 @@ class _CartPageState extends State<CartPage> {
                           'assets/images/icon/arrow-back.svg',
                           height: 24,
                           width: 24)),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   Text('Cart', style: title('2')),
                 ],
               ),
@@ -55,12 +54,13 @@ class _CartPageState extends State<CartPage> {
               child: SingleChildScrollView(
                 child: Container(
                   clipBehavior: Clip.none,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 32),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 32),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Food', style: subTitle('1')),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Consumer<FoodProvider>(builder: (context, cart, child) {
                         return Column(children: [
                           ...cart.foods
@@ -71,18 +71,18 @@ class _CartPageState extends State<CartPage> {
                             onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => FoodPage())),
+                                    builder: (context) => const FoodPage())),
                             child: Text(
-                                cart.foods.length > 0
+                                cart.foods.isNotEmpty
                                     ? 'add more food'
                                     : 'add food',
                                 style: subTitle('2', primary50)),
                           )),
                         ]);
                       }),
-                      SizedBox(height: 24),
+                      const SizedBox(height: 24),
                       Text('Table', style: subTitle('1')),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -94,18 +94,18 @@ class _CartPageState extends State<CartPage> {
                                   borderRadius: BorderRadius.circular(6),
                                   color: white,
                                 ),
-                                child: Image(
+                                child: const Image(
                                     image: AssetImage(
                                         'assets/images/foods/Intersect-3.png'),
                                     height: 80,
                                     width: 80,
                                     fit: BoxFit.cover),
                               ),
-                              SizedBox(width: 24),
+                              const SizedBox(width: 24),
                               Column(
                                 children: [
                                   Text('Nama', style: subTitle('2')),
-                                  SizedBox(height: 8),
+                                  const SizedBox(height: 8),
                                   Text('Harga', style: subTitle('2')),
                                 ],
                               ),
@@ -115,7 +115,7 @@ class _CartPageState extends State<CartPage> {
                               height: 24, width: 24),
                         ],
                       ),
-                      SizedBox(height: 32),
+                      const SizedBox(height: 32),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -124,7 +124,7 @@ class _CartPageState extends State<CartPage> {
                           Text('add more', style: subTitle('2', primary50)),
                         ],
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -132,9 +132,9 @@ class _CartPageState extends State<CartPage> {
                           Text('Rp25.000', style: subTitle('2')),
                         ],
                       ),
-                      SizedBox(height: 24),
+                      const SizedBox(height: 24),
                       Text('Total', style: subTitle('1')),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -142,7 +142,7 @@ class _CartPageState extends State<CartPage> {
                           Text('Rp136.000', style: subTitle('2')),
                         ],
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -150,7 +150,7 @@ class _CartPageState extends State<CartPage> {
                           Text('Rp0', style: subTitle('2')),
                         ],
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -174,7 +174,7 @@ class _CartPageState extends State<CartPage> {
                       offset: Offset(0, -2)),
                 ],
               ),
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -185,8 +185,8 @@ class _CartPageState extends State<CartPage> {
                           children: [
                         TextSpan(text: 'Rp171.000', style: subTitle('1')),
                       ])),
-                  SizedBox(height: 16),
-                  Container(
+                  const SizedBox(height: 16),
+                  SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {},
@@ -194,7 +194,7 @@ class _CartPageState extends State<CartPage> {
                       style: ElevatedButton.styleFrom(
                           elevation: 0,
                           primary: primary50,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 12)),
                     ),
                   )
@@ -209,9 +209,9 @@ class _CartPageState extends State<CartPage> {
 }
 
 class CartFoodItem extends StatelessWidget {
-  Food food;
+  final Food food;
 
-  CartFoodItem({
+  const CartFoodItem({
     Key? key,
     required this.food,
   }) : super(key: key);
@@ -237,12 +237,12 @@ class CartFoodItem extends StatelessWidget {
                     width: 80,
                     fit: BoxFit.cover),
               ),
-              SizedBox(width: 24),
+              const SizedBox(width: 24),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(food.name, style: subTitle('2')),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(food.price, style: subTitle('2')),
                 ],
               ),

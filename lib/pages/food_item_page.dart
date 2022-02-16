@@ -41,7 +41,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
         Container(
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30), topRight: Radius.circular(30)),
             color: white,
           ),
@@ -54,7 +54,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
                   width: double.infinity,
                   fit: BoxFit.cover),
               Container(
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -68,7 +68,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
                               widget.name,
                               style: title('1'),
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
@@ -76,27 +76,27 @@ class _FoodItemPageState extends State<FoodItemPage> {
                                       'assets/images/icon/star.svg',
                                       height: 16,
                                       width: 16),
-                                  SizedBox(width: 8),
+                                  const SizedBox(width: 8),
                                   SvgPicture.asset(
                                       'assets/images/icon/star.svg',
                                       height: 16,
                                       width: 16),
-                                  SizedBox(width: 8),
+                                  const SizedBox(width: 8),
                                   SvgPicture.asset(
                                       'assets/images/icon/star.svg',
                                       height: 16,
                                       width: 16),
-                                  SizedBox(width: 8),
+                                  const SizedBox(width: 8),
                                   SvgPicture.asset(
                                       'assets/images/icon/star.svg',
                                       height: 16,
                                       width: 16),
-                                  SizedBox(width: 8),
+                                  const SizedBox(width: 8),
                                   SvgPicture.asset(
                                       'assets/images/icon/star.svg',
                                       height: 16,
                                       width: 16),
-                                  SizedBox(width: 8),
+                                  const SizedBox(width: 8),
                                   Text(widget.star, style: body('2', gray)),
                                 ])
                           ],
@@ -129,16 +129,16 @@ class _FoodItemPageState extends State<FoodItemPage> {
                         )
                       ],
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     Text(widget.price, style: title('1')),
-                    SizedBox(height: 32),
+                    const SizedBox(height: 32),
                     SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 elevation: 0,
                                 primary: primary50,
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 12)),
                             onPressed: () {
                               Provider.of<FoodProvider>(
@@ -153,6 +153,46 @@ class _FoodItemPageState extends State<FoodItemPage> {
                                 star: widget.star,
                               ));
                               Navigator.of(context).pop();
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                // action: SnackBarAction(
+                                //     label: 'cart',
+                                //     onPressed: () =>
+                                //         Navigator.pushNamed(context, '/cart')),
+                                content: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Successfuly place order',
+                                        style: body('1', white)),
+                                    GestureDetector(
+                                      onTap: () =>
+                                          Navigator.pushNamed(context, '/cart'),
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8, vertical: 4),
+                                        child: Text('Cart',
+                                            style: subTitle('2', primary50)),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                          color: white,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                duration: const Duration(milliseconds: 3000),
+                                padding: const EdgeInsets.all(
+                                    16 // Inner padding for SnackBar content.
+                                    ),
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 24),
+                                behavior: SnackBarBehavior.floating,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ));
                             },
                             child: Text('Place Order',
                                 style: subTitle('2', white))))
@@ -164,7 +204,7 @@ class _FoodItemPageState extends State<FoodItemPage> {
         ),
         Center(
             child: Padding(
-                padding: EdgeInsets.only(top: 16),
+                padding: const EdgeInsets.only(top: 16),
                 child: SvgPicture.asset(
                     'assets/images/icon/action bottom sheet.svg',
                     height: 4,

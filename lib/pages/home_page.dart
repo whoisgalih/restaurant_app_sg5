@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_app/theme/theme.dart';
 import 'package:restaurant_app/widgets/category.dart';
 import 'package:restaurant_app/widgets/recommendation_item.dart';
-import 'package:restaurant_app/pages/cart_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -17,7 +16,7 @@ class HomePage extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(left: 20, right: 20, top: 8),
+            margin: const EdgeInsets.only(left: 20, right: 20, top: 8),
             // Container Column (Main Column)
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,18 +32,17 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CartPage())),
+                  onTap: () => Navigator.pushNamed(context, '/cart'),
                   child: SvgPicture.asset('assets/images/icon/cart.svg',
                       height: 28, width: 28),
                 )
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
-          Slider(
+          const Slider(
             items: [
               'assets/images/carousel-image/super deal date.png',
               'assets/images/carousel-image/super family.png',
@@ -53,29 +51,32 @@ class HomePage extends StatelessWidget {
           ),
           Container(
             clipBehavior: Clip.none,
-            margin: EdgeInsets.symmetric(horizontal: 20),
+            margin: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 32,
                 ),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ['food.svg', 'Food'],
-                      ['table.svg', 'Table'],
-                      ['payment.svg', 'Payment'],
-                      ['more.svg', 'More'],
+                      ['food.svg', 'Food', '/food'],
+                      ['table.svg', 'Table', '/food'],
+                      ['payment.svg', 'Payment', '/food'],
+                      ['more.svg', 'More', '/food'],
                     ]
-                        .map((item) =>
-                            Category(imageFile: item[0], text: item[1]))
+                        .map((item) => Category(
+                              imageFile: item[0],
+                              text: item[1],
+                              page: item[2],
+                            ))
                         .toList()),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Text('Recommendation', style: title('2')),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 SingleChildScrollView(
                   clipBehavior: Clip.none,
                   scrollDirection: Axis.horizontal,
@@ -122,7 +123,7 @@ class HomePage extends StatelessWidget {
                           )
                           .toList()),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
               ],
@@ -170,7 +171,7 @@ class _SliderState extends State<Slider> {
                       borderRadius: BorderRadius.circular(6),
                       color: gray,
                     ),
-                    margin: EdgeInsets.symmetric(horizontal: 8),
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
                     child: Image(
                       image: AssetImage(item),
                       height: 160,

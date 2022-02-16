@@ -1,27 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:restaurant_app/pages/cart_page.dart';
+import 'package:restaurant_app/pages/food_page.dart';
 import 'package:restaurant_app/pages/home_page.dart';
 import 'package:restaurant_app/provider/food_provider.dart';
 import 'package:restaurant_app/theme/theme.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<FoodProvider>(
         create: (context) => FoodProvider(),
         child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            scaffoldBackgroundColor: Color(0xFFFFFFFF),
-          ),
-          title: 'Restaurant App',
-          home: App(),
-        ));
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+            ),
+            title: 'Restaurant App',
+            // home: App(),
+            initialRoute: '/',
+            routes: {
+              // When navigating to the "/" route, build the FirstScreen widget.
+              '/': (context) => const App(),
+              // When navigating to the "/second" route, build the SecondScreen widget.
+              '/food': (context) => const FoodPage(),
+              '/cart': (context) => const CartPage(),
+            }));
   }
 }
 
@@ -69,7 +80,7 @@ class _AppState extends State<App> {
       ),
       bottomNavigationBar: Container(
         height: 72,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(
                 color: Color(0x0A000000),

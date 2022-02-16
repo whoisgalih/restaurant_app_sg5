@@ -24,7 +24,7 @@ class FoodItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => showMaterialModalBottomSheet(
-          barrierColor: Color(0x4D000000),
+          barrierColor: const Color(0x4D000000),
           expand: false,
           context: context,
           backgroundColor: Colors.transparent,
@@ -41,8 +41,10 @@ class FoodItem extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
           boxShadow: [
-            BoxShadow(
-                color: Color(0x1F000000), blurRadius: 10, offset: Offset(0, 1)),
+            const BoxShadow(
+                color: const Color(0x1F000000),
+                blurRadius: 10,
+                offset: Offset(0, 1)),
           ],
           color: white,
         ),
@@ -61,21 +63,21 @@ class FoodItem extends StatelessWidget {
                   fit: BoxFit.cover),
             ),
             Container(
-                margin: EdgeInsets.all(8),
+                margin: const EdgeInsets.all(8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(name, style: subTitle('2')),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SvgPicture.asset('assets/images/icon/star.svg',
                               height: 16, width: 16),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           Text(star, style: body('2', gray)),
                         ]),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(price, style: subTitle('2'))
                   ],
                 )),

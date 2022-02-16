@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:collection/collection.dart';
 import 'package:restaurant_app/models/food.dart';
-import 'package:restaurant_app/pages/cart_page.dart';
 
 class FoodProvider with ChangeNotifier {
   List<Food> _foods = [];
@@ -16,6 +15,7 @@ class FoodProvider with ChangeNotifier {
         return i;
       }
     }
+    return null;
   }
 
   addFood(Food food) {

@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:restaurant_app/theme/theme.dart';
 import 'package:restaurant_app/widgets/pill_text.dart';
 import 'package:restaurant_app/widgets/food_list.dart';
-import 'package:restaurant_app/pages/cart_page.dart';
 
 class FoodPage extends StatefulWidget {
   const FoodPage({Key? key}) : super(key: key);
@@ -20,9 +19,8 @@ class _FoodPageState extends State<FoodPage> {
   late TextEditingController _controller;
   List<Map> _foods = [];
   List<String> _tags = [];
-  List<Map>? _searchResult = null;
-  List<Map>? _filtered = null;
-  // List<String>? _filterTags = null;
+  List<Map>? _searchResult;
+  List<Map>? _filtered;
   List<String> _filterTags = [];
 
   search(String text) {
@@ -51,9 +49,9 @@ class _FoodPageState extends State<FoodPage> {
     }
 
     List<List> temp = [];
-    tags.forEach((tag) {
+    for (var tag in tags) {
       temp.add(_foods.where((food) => food['tags'].contains(tag)).toList());
-    });
+    }
 
     List _result = temp
         .fold<Set>(
@@ -114,7 +112,7 @@ class _FoodPageState extends State<FoodPage> {
                       offset: Offset(0, 6)),
                 ],
               ),
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -126,13 +124,12 @@ class _FoodPageState extends State<FoodPage> {
                               'assets/images/icon/arrow-back.svg',
                               height: 24,
                               width: 24)),
-                      SizedBox(width: 16),
+                      const SizedBox(width: 16),
                       Text('Food', style: title('2')),
                     ],
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CartPage())),
+                    onTap: () => Navigator.pushNamed(context, '/cart'),
                     child: SvgPicture.asset('assets/images/icon/cart_black.svg',
                         height: 24, width: 24),
                   )
@@ -144,7 +141,8 @@ class _FoodPageState extends State<FoodPage> {
                 children: [
                   Container(
                     clipBehavior: Clip.none,
-                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 24),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -175,17 +173,17 @@ class _FoodPageState extends State<FoodPage> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 style: BorderStyle.solid,
                                 color: Colors.blue,
                                 width: 2,
                               ),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 10),
                           ),
                         ),
-                        SizedBox(height: 24),
+                        const SizedBox(height: 24),
                         SingleChildScrollView(
                           clipBehavior: Clip.none,
                           scrollDirection: Axis.horizontal,
@@ -218,27 +216,27 @@ class _FoodPageState extends State<FoodPage> {
                   ),
                   (_searchResult ?? _filtered ?? _foods).isEmpty
                       ? Container(
-                          padding:
-                              EdgeInsets.only(top: 80, left: 20, right: 20),
+                          padding: const EdgeInsets.only(
+                              top: 80, left: 20, right: 20),
                           child: Column(children: [
                             SvgPicture.asset(
                                 'assets/images/icon/restaurant.svg',
                                 height: 160,
                                 width: 160),
-                            SizedBox(height: 24),
+                            const SizedBox(height: 24),
                             Text(
                               'Well, there is no food you are looking for :(',
                               style: title('1'),
                               textAlign: TextAlign.center,
                             ),
-                            SizedBox(height: 50),
-                            Container(
+                            const SizedBox(height: 50),
+                            SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     primary: primary50,
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         horizontal: 16, vertical: 12)),
                                 child: Text('Find Other Food',
                                     style: subTitle('2', white)),
@@ -251,7 +249,7 @@ class _FoodPageState extends State<FoodPage> {
                             )
                           ]))
                       : FoodList(foods: _searchResult ?? _filtered ?? _foods),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                 ],
               ),
             ),

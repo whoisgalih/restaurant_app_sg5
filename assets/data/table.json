@@ -1,0 +1,28 @@
+{
+  "tables": [
+    {
+      "id": "84c227c2-8ae2-11ec-a8a3-0242ac120002",
+      "name": "Work Table",
+      "table": 1,
+      "chair": 1,
+      "image": "Intersect 1.png",
+      "tags": ["Single Table", "Special Date"]
+    },
+    {
+      "id": "9513b5aa-8ae2-11ec-a8a3-0242ac120002",
+      "name": "Family Table",
+      "table": 1,
+      "chair": 6,
+      "image": "Intersect 2.png",
+      "tags": ["Double Table", "Family Table"]
+    },
+    {
+      "id": "9df448e2-8ae2-11ec-a8a3-0242ac120002",
+      "name": "Family Table",
+      "table": 1,
+      "chair": 6,
+      "image": "Intersect 3.png",
+      "tags": ["Family Table", "Special Date"]
+    }
+  ]
+}
